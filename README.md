@@ -105,6 +105,8 @@ powershell -ExecutionPolicy Bypass -File .\scripts\publish_daily_cards.ps1
 4. Branch 选择你的主分支，Folder 选择 `/ (root)`
 5. 保存后，GitHub 会把仓库根目录当成静态站点发布
 
+当前方案使用仓库设置中的 Pages 分支发布，不依赖 `.github/workflows/` 下的部署工作流。
+
 ## 站点使用逻辑
 
 - 根页面会读取 `data/index.json`
