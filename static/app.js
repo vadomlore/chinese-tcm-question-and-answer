@@ -1,5 +1,7 @@
 const DATA_INDEX_PATH = "./data/index.json";
 const QUESTION_SECTION = "## Daily Questions (AI Generated)";
+let currentCards = [];
+let currentIndex = 0;
 
 function setText(id, value) {
     const element = document.getElementById(id);
@@ -14,6 +16,7 @@ function showEmpty(message, reviewDate, sourceFile = "暂无") {
     setText("card-count", "0");
     setText("empty-message", message);
     document.getElementById("empty-state").hidden = false;
+    document.getElementById("practice-panel").hidden = true;
     document.getElementById("card-list").hidden = true;
 }
 
@@ -73,7 +76,58 @@ function renderCards(cards) {
     });
 
     document.getElementById("empty-state").hidden = true;
+    document.getElementById("practice-panel").hidden = false;
     list.hidden = false;
+}
+
+function renderCurrentCard() {
+    const card = currentCards[currentIndex];
+    if (!card) {
+        return;
+    }
+
+    setText("current-position", `第 ${currentIndex + 1} / ${currentCards.length} 题`);
+    setText("current-card-index", `第 ${card.index} 题`);
+    setText("current-question", card.question);
+    setText("current-answer", card.answer);
+    setText("current-keywords", card.keywords);
+    setText("current-hint", card.hint);
+
+    const answerPanel = document.getElementById("answer-panel");
+    const toggleButton = document.getElementById("toggle-answer-btn");
+    answerPanel.hidden = true;
+    toggleButton.textContent = "显示答案";
+}
+
+function bindPracticeActions() {
+    document.getElementById("toggle-answer-btn").onclick = () => {
+        const answerPanel = document.getElementById("answer-panel");
+        const toggleButton = document.getElementById("toggle-answer-btn");
+        answerPanel.hidden = !answerPanel.hidden;
+        toggleButton.textContent = answerPanel.hidden ? "显示答案" : "收起答案";
+    };
+
+    document.getElementById("random-btn").onclick = () => {
+        if (!currentCards.length) {
+            return;
+        }
+        let nextIndex = currentIndex;
+        if (currentCards.length > 1) {
+            while (nextIndex === currentIndex) {
+                nextIndex = Math.floor(Math.random() * currentCards.length);
+            }
+        }
+        currentIndex = nextIndex;
+        renderCurrentCard();
+    };
+
+    document.getElementById("next-btn").onclick = () => {
+        if (!currentCards.length) {
+            return;
+        }
+        currentIndex = (currentIndex + 1) % currentCards.length;
+        renderCurrentCard();
+    };
 }
 
 function todayIso() {
@@ -130,6 +184,10 @@ async function boot() {
         setText("review-date", reviewDate);
         setText("source-file", candidate.fileName);
         setText("card-count", String(cards.length));
+        currentCards = cards;
+        currentIndex = 0;
+        bindPracticeActions();
+        renderCurrentCard();
         renderCards(cards);
     } catch (error) {
         showEmpty("页面加载失败。请确认 data/index.json 和每日题库文件已经推送到仓库。", reviewDate);

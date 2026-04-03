@@ -29,6 +29,31 @@
             </div>
         </section>
 
+        <section id="practice-panel" class="practice-panel" hidden>
+            <div class="practice-header">
+                <div>
+                    <p class="meta-label">当前进度</p>
+                    <p class="meta-value" id="current-position">第 1 题</p>
+                </div>
+                <div class="practice-actions">
+                    <button type="button" id="random-btn">随机一题</button>
+                    <button type="button" id="next-btn">下一题</button>
+                </div>
+            </div>
+
+            <article class="flashcard flashcard-focus">
+                <p class="card-index" id="current-card-index">第 1 题</p>
+                <h2 id="current-question">加载中</h2>
+                <button type="button" id="toggle-answer-btn" class="secondary-button">显示答案</button>
+
+                <section id="answer-panel" class="answer-panel" hidden>
+                    <p><strong>答案：</strong><span id="current-answer"></span></p>
+                    <p><strong>关键词：</strong><span id="current-keywords"></span></p>
+                    <p><strong>复习提示：</strong><span id="current-hint"></span></p>
+                </section>
+            </article>
+        </section>
+
         <section id="card-list" class="card-list" hidden></section>
 
         <section id="empty-state" class="empty-state" hidden>
