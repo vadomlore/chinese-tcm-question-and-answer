@@ -19,7 +19,7 @@ $items = foreach ($file in $files) {
         date = [System.IO.Path]::GetFileNameWithoutExtension($file.Name)
         fileName = $file.Name
         path = "data/daily/$($file.Name)"
-        hasQuestions = ($content -match '^###\s+\d+\s*$')
+        hasQuestions = ($content -match '(?m)^###\s+\d+\s*$')
     }
 }
 
