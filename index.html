@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中医问答练习</title>
+    <link rel="stylesheet" href="./static/styles.css">
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero">
+            <p class="eyebrow">GitHub Pages Ready</p>
+            <h1>中医问答练习页</h1>
+            <p class="lede">静态页面会优先读取最近一份有题目的日卡文件。你每天把题库推到 GitHub 后，这里就能直接开始练。</p>
+        </section>
+
+        <section class="toolbar">
+            <div>
+                <p class="meta-label">目标日期</p>
+                <p class="meta-value" id="review-date">加载中</p>
+            </div>
+            <div>
+                <p class="meta-label">题目来源</p>
+                <p class="meta-value" id="source-file">加载中</p>
+            </div>
+            <div>
+                <p class="meta-label">题目数量</p>
+                <p class="meta-value" id="card-count">0</p>
+            </div>
+        </section>
+
+        <section id="card-list" class="card-list" hidden></section>
+
+        <section id="empty-state" class="empty-state" hidden>
+            <h2>还没有可练习的题目</h2>
+            <p id="empty-message"></p>
+            <p>下一步：先在 Copilot Chat 里执行 <code>/生成中医问答题</code>，然后运行发布脚本把题库推到 GitHub。</p>
+        </section>
+    </main>
+
+    <script src="./static/app.js"></script>
+</body>
+</html>

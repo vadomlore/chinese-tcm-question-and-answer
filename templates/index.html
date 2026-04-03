@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中医问答练习</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <main class="page-shell">
+        <section class="hero">
+            <p class="eyebrow">Daily Review</p>
+            <h1>中医问答练习页</h1>
+            <p class="lede">默认读取目标日期之前最近一份已有题目的日卡文件。这样你每天打开页面时，优先练昨天已经上传的题。</p>
+        </section>
+
+        <section class="toolbar">
+            <div>
+                <p class="meta-label">目标日期</p>
+                <p class="meta-value">{{ session.review_date }}</p>
+            </div>
+            <div>
+                <p class="meta-label">题目来源</p>
+                <p class="meta-value">{{ session.source_file or '暂无' }}</p>
+            </div>
+            <div>
+                <p class="meta-label">题目数量</p>
+                <p class="meta-value">{{ session.cards|length }}</p>
+            </div>
+        </section>
+
+        {% if session.cards %}
+            <section class="card-list">
+                {% for card in session.cards %}
+                    <article class="flashcard">
+                        <p class="card-index">第 {{ card.index }} 题</p>
+                        <h2>{{ card.question }}</h2>
+                        <details>
+                            <summary>显示答案</summary>
+                            <p><strong>答案：</strong>{{ card.answer }}</p>
+                            <p><strong>关键词：</strong>{{ card.keywords }}</p>
+                            <p><strong>复习提示：</strong>{{ card.hint }}</p>
+                        </details>
+                    </article>
+                {% endfor %}
+            </section>
+        {% else %}
+            <section class="empty-state">
+                <h2>还没有可练习的题目</h2>
+                <p>{{ session.empty_reason }}</p>
+                <p>下一步：先在 Copilot Chat 里执行 <code>/生成中医问答题</code>，再刷新本页。</p>
+            </section>
+        {% endif %}
+    </main>
+</body>
+</html>

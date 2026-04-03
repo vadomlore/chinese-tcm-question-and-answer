@@ -1,0 +1,120 @@
+:root {
+    --bg: #f5efe4;
+    --panel: rgba(255, 251, 245, 0.92);
+    --card: rgba(255, 255, 255, 0.78);
+    --text: #2b231c;
+    --muted: #756454;
+    --accent: #8d4c2f;
+    --border: rgba(141, 76, 47, 0.16);
+    --shadow: 0 18px 45px rgba(92, 63, 42, 0.12);
+    font-family: "Noto Serif SC", "Source Han Serif SC", "Microsoft YaHei UI", serif;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    color: var(--text);
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at top left, rgba(214, 184, 154, 0.5), transparent 28%),
+        radial-gradient(circle at bottom right, rgba(176, 120, 84, 0.22), transparent 28%),
+        linear-gradient(135deg, #f8f2e8, #ecdfcf);
+}
+
+.page-shell {
+    width: min(980px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 36px 0 60px;
+}
+
+.hero h1 {
+    margin: 0;
+    font-size: clamp(32px, 6vw, 52px);
+}
+
+.eyebrow,
+.meta-label,
+.card-index {
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+.lede,
+.empty-state p,
+details p,
+summary {
+    color: var(--muted);
+    line-height: 1.7;
+}
+
+.toolbar {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin: 24px 0;
+}
+
+.toolbar > div,
+.flashcard,
+.empty-state {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+}
+
+.toolbar > div {
+    padding: 16px 18px;
+}
+
+.meta-value {
+    margin: 8px 0 0;
+    font-size: 20px;
+}
+
+.card-list {
+    display: grid;
+    gap: 14px;
+}
+
+.flashcard {
+    padding: 20px;
+    background: var(--card);
+}
+
+.flashcard h2 {
+    margin: 8px 0 14px;
+    font-size: 24px;
+    line-height: 1.45;
+}
+
+details {
+    padding-top: 6px;
+}
+
+summary {
+    cursor: pointer;
+}
+
+.empty-state {
+    padding: 26px;
+    text-align: center;
+}
+
+code {
+    padding: 2px 6px;
+    border-radius: 999px;
+    background: rgba(141, 76, 47, 0.12);
+    color: var(--accent);
+}
+
+@media (max-width: 760px) {
+    .toolbar {
+        grid-template-columns: 1fr;
+    }
+}
